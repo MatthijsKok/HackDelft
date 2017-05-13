@@ -1,12 +1,11 @@
 #!/home/balint/virtualenvs/py34/bin/python
-import numpy as np
-import pandas as pd
-from datetime import date, datetime, time
-#import matplotlib.pyplot as plt
-#import seaborn
-import os
-import sys
 import argparse
+import numpy as np
+import matplotlib.pyplot as plt
+# import seaborn
+import os
+import pandas as pd
+
 """
 Reads all prices, assumed to be named like 2017-01-03_prices.csv
 Reads all trades, assumed to be named like 2017-01-03_trades.csv
@@ -43,6 +42,9 @@ def main():
     parser = argparse.ArgumentParser(description='Evaluate trades')
     parser.add_argument(
         "-t", "--teamname", help="Name of the team for outputting results", metavar="TEAMNAME", default='Test Team')
+    parser.add_argument(
+        "-p", "--plot", help="Show the profit plot after evaluating", action='store_true'
+    )
     args = parser.parse_args()
 
     transaction_cost = 0.0
@@ -75,9 +77,12 @@ def main():
 
     daily_sums.to_csv('Results_' + str(args.teamname) + '.csv')
 
-    #fig, ax = plt.subplots()
-    #daily_sums.cum_pnl.plot(ax=ax, title='End of day PnLs')
-    #plt.show()
+    print args
+
+    if args.plot:
+        fig, ax = plt.subplots()
+        daily_sums.cum_pnl.plot(ax=ax, title='End of day PnLs')
+        plt.show()
 
 
 main()

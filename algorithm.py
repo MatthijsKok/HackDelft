@@ -1,10 +1,9 @@
 #!/home/balint/virtualenvs/py34/bin/python
 import numpy as np
-import pandas as pd
-import collections
-from tqdm import tqdm
-from datetime import date, datetime, time
 import os
+import pandas as pd
+
+from tqdm import tqdm
 
 
 def trade_generator(max_lots=100, close_by=30601):
