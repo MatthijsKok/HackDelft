@@ -1,9 +1,18 @@
 import matplotlib.pyplot as plt
-from reader import read_all
+from reader import *
 import numpy as np
 
+# True if you want to plot al 50 days, false if you want to plot a single day
+plot_all = False
+
+# The day (1 to 50) you want to plot
+day = 1
+
 # Read in prices files
-prices = read_all()
+if plot_all:
+    prices = read_all()
+else:
+    prices = read_day(day)
 
 # Get the prices from the file
 prices_list = prices.price
