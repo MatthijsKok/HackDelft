@@ -2,7 +2,6 @@
 import numpy as np
 import os
 import pandas as pd
-
 from tqdm import tqdm
 
 
@@ -48,7 +47,7 @@ day_prices.sort()
 
 # For each data file..
 for price_filename in tqdm(day_prices):
-    # read in the file, indexed on time
+    # Read in the file, indexed on time
     dataframe = pd.read_csv("./prices/" + price_filename, index_col='times', parse_dates=True)
 
     # Get the list of prices
@@ -67,7 +66,6 @@ for price_filename in tqdm(day_prices):
     # Fill in the array with the trades
     for i in range(l):
         pos[i] = g.send(c[i])
-
 
     # Write trades to file
     trade_filename = os.path.join('./trades/', price_filename.replace('prices', 'trades'))

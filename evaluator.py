@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 # import seaborn
 import os
 import pandas as pd
+from reader import read_all
 
 """
 Reads all prices, assumed to be named like 2017-01-03_prices.csv
@@ -25,17 +26,6 @@ times,trades
 Every second is assumed to have a trade, even if it's zero
 
 """
-
-
-def read_all(which='_trades.csv', folder='prices'):
-    print("Reading all files which: " + which + " in folder: " + folder)
-    list_ = []
-    files = [f for f in os.listdir(folder) if which in f]
-    files.sort()
-    for cf in files:
-        df = pd.read_csv(os.path.join(folder, cf), index_col='times', parse_dates=True)
-        list_.append(df)
-    return pd.concat(list_).sort_index()
 
 
 def main():
@@ -62,7 +52,7 @@ def main():
     prices['PnL'] = (prices.trade_cost - prices.transaction_cost)
     prices['cum_pnl'] = prices.PnL.cumsum() - (prices.price * prices.position)
 
-    daily_sums = prices.groupby(pd.TimeGrouper('1D')).agg({'cum_pnl':'last', 'position':'last', 'PnL':'sum', 'transaction_cost':'sum'}).dropna()
+    daily_sums = prices.groupby(pd.TimeGrouper('1D')).agg({'cum_pnl': 'last', 'position': 'last', 'PnL': 'sum', 'transaction_cost':'sum'}).dropna()
 
     mean_daily_pnl = daily_sums.PnL.mean()
     std_daily_pnl = daily_sums.PnL.std()
@@ -76,8 +66,6 @@ def main():
     print('Min position: ', min_position, ' max position: ', max_position)
 
     daily_sums.to_csv('Results_' + str(args.teamname) + '.csv')
-
-    print args
 
     if args.plot:
         fig, ax = plt.subplots()
