@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 import collections
-#from tqdm import tqdm
+from tqdm import tqdm
 from datetime import date, datetime, time
 import os
 
@@ -29,12 +29,12 @@ def trade_generator(max_lots=100, close_by=30601):
         pos += trade
 
 
-day_prices = [f for f in os.listdir('./prices') if '_prices.csv' in f]
+day_prices = [f for f in os.listdir('.\\prices\\') if '_prices.csv' in f]
 
 day_prices.sort()
-for price_filename in day_prices:
+# for price_filename in day_prices:
 # tqdm gives a nice progress bar of how much time is left
-# for price_filename in tqdm(day_prices):
+for price_filename in tqdm(day_prices):
     dataframe = pd.read_csv("./prices/" + price_filename, index_col='times', parse_dates=True)
     c = dataframe['price'].values
 
