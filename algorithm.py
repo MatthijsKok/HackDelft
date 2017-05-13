@@ -5,12 +5,13 @@ import pandas as pd
 from tqdm import tqdm
 
 # Define the strat you want to use here.
-# all strat files must have implement_strat(price_list) -> trades_list
-from strategies import sma_follow_strat as strat
+# all strat classes must have a trades_list field
+from strategies import sma_follow_strat as strategy
 
 
 def calculate_trades(price_list):
-    return strat.implement_strat(price_list)
+    s = strategy.Strategy(price_list)
+    return s.trades_list
 
 
 # Create a list with all file names in the directory
