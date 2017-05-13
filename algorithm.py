@@ -29,7 +29,7 @@ def trade_generator(max_lots=100, close_by=30601):
         pos += trade
 
 
-day_prices = [f for f in os.listdir('.\\prices\\') if '_prices.csv' in f]
+day_prices = [f for f in os.listdir('./prices/') if '_prices.csv' in f]
 
 day_prices.sort()
 # for price_filename in day_prices:
@@ -46,5 +46,5 @@ for price_filename in tqdm(day_prices):
     for i in range(l):
         pos[i] = g.send(c[i])
 
-    trade_filename = os.path.join('.\\trades\\', price_filename.replace('prices', 'trades'))
+    trade_filename = os.path.join('./trades/', price_filename.replace('prices', 'trades'))
     pd.DataFrame(index=dataframe.index, columns=['trades'], data=pos).to_csv(trade_filename)
