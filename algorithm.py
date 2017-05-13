@@ -46,5 +46,5 @@ for price_filename in day_prices:
     for i in range(l):
         pos[i] = g.send(c[i])
 
-    print(os.path.join("/trades/", price_filename.replace('prices', 'trades')))
-    pd.DataFrame(index=dataframe.index, columns=['trades'], data=pos).to_csv(os.path.join("/trades/", price_filename.replace('prices', 'trades')))
+    trade_filename = os.path.join('.\\trades\\', price_filename.replace('prices', 'trades'))
+    pd.DataFrame(index=dataframe.index, columns=['trades'], data=pos).to_csv(trade_filename)
