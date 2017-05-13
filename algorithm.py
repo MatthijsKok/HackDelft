@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 import collections
-#from tqdm import tqdm
+from tqdm import tqdm
 from datetime import date, datetime, time
 import os
 
@@ -39,23 +39,23 @@ def trade_generator(max_lots=100, close_by=30601):
         # Add the number traded to the stocks in possession
         pos += trade
 
+
 # Create a list with all file names in the directory
-day_prices = [f for f in os.listdir('.') if '_prices.csv' in f]
+day_prices = [f for f in os.listdir('./prices/') if '_prices.csv' in f]
+
 
 # Sort the list so the dates are sorted
 day_prices.sort()
 
 # For each data file..
-for price_filename in day_prices:
-    # tqdm gives a nice progress bar of how much time is left
-    # for price_filename in tqdm(day_prices):
+for price_filename in tqdm(day_prices):
+    # read in the file, indexed on time
+    dataframe = pd.read_csv("./prices/" + price_filename, index_col='times', parse_dates=True)
 
-    # Get the times
-    dataframe = pd.read_csv(price_filename, index_col='times', parse_dates=True)
-    # Get the prices
+    # Get the list of prices
     c = dataframe['price'].values
 
-    # Get the length of the prices
+    # Get the length of the list of prices
     l = len(c)
 
     # Generate trades for the day
@@ -69,5 +69,7 @@ for price_filename in day_prices:
     for i in range(l):
         pos[i] = g.send(c[i])
 
-    # Write the trades to file
-    pd.DataFrame(index=dataframe.index, columns=['trades'], data=pos).to_csv(price_filename.replace('prices', 'trades'))
+
+    # Write trades to file
+    trade_filename = os.path.join('./trades/', price_filename.replace('prices', 'trades'))
+    pd.DataFrame(index=dataframe.index, columns=['trades'], data=pos).to_csv(trade_filename)
