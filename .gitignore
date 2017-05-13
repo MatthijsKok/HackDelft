@@ -1,6 +1,10 @@
 # Generated trades folder.
 trades
 
+# Prevent tracking of generated csv files, but include those in the prices folder
+*.csv
+!prices/*.csv
+
 ### macOS template
 *.DS_Store
 .AppleDouble
@@ -86,6 +90,3 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
-
-# Prevent tracking of generated csv files
-*.csv
