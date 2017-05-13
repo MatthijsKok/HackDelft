@@ -14,8 +14,11 @@ trends = [1, 10, 300]
 # Calculate trend lines
 for trend in trends:
     trend_line = np.convolve(prices_list, np.ones(trend) / trend, mode='full')
+    trend_line = trend_line[max(trends): len(trend_line) - max(trends)]
     plt.plot(trend_line)
 
 # Show plot
-plt.legend(trends, loc='lower center');
+plt.legend(trends, loc='lower center')
+plt.title("Price with trend lines")
 plt.show()
+
