@@ -28,12 +28,13 @@ Every second is assumed to have a trade, even if it's zero
 """
 
 
-def read_all(which='_trades.csv'):
+def read_all(which='_trades.csv', folder='prices'):
+    print("Reading all files which: " + which + " in folder: " + folder)
     list_ = []
-    files = [f for f in os.listdir('.') if which in f]
+    files = [f for f in os.listdir(folder) if which in f]
     files.sort()
     for cf in files:
-        df = pd.read_csv(cf, index_col='times', parse_dates=True)
+        df = pd.read_csv(os.path.join(folder, cf), index_col='times', parse_dates=True)
         list_.append(df)
     return pd.concat(list_).sort_index()
 
@@ -45,9 +46,9 @@ def main():
     args = parser.parse_args()
 
     transaction_cost = 0.0
-    prices = read_all('_prices.csv')
+    prices = read_all('_prices.csv', 'prices')
     print('All prices read')
-    trades = read_all('_trades.csv')
+    trades = read_all('_trades.csv', 'trades')
     print('All trades read')
 
     prices['trades'] = trades
