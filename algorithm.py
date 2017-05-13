@@ -29,13 +29,13 @@ def trade_generator(max_lots=100, close_by=30601):
         pos += trade
 
 
-day_prices = [f for f in os.listdir('.') if '_prices.csv' in f]
+day_prices = [f for f in os.listdir('./prices') if '_prices.csv' in f]
 
 day_prices.sort()
 for price_filename in day_prices:
 # tqdm gives a nice progress bar of how much time is left
 # for price_filename in tqdm(day_prices):
-    dataframe = pd.read_csv(price_filename, index_col='times', parse_dates=True)
+    dataframe = pd.read_csv("./prices/" + price_filename, index_col='times', parse_dates=True)
     c = dataframe['price'].values
 
     l = len(c)
@@ -46,4 +46,5 @@ for price_filename in day_prices:
     for i in range(l):
         pos[i] = g.send(c[i])
 
-    pd.DataFrame(index=dataframe.index, columns=['trades'], data=pos).to_csv(price_filename.replace('prices', 'trades'))
+    print(os.path.join("/trades/", price_filename.replace('prices', 'trades')))
+    pd.DataFrame(index=dataframe.index, columns=['trades'], data=pos).to_csv(os.path.join("/trades/", price_filename.replace('prices', 'trades')))
