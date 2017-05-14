@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 # Define the strat you want to use here.
 # all strat files must have implement_strat(price_list) -> trades_list
-from strategies import binary_flip_strat as strategy
+from strategies import average_trading as strategy
 
 
 def calculate_trades(price_list):
