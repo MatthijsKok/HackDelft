@@ -25,7 +25,7 @@ Every second is assumed to have a trade, even if it's zero
 """
 
 # day to analyze
-day = 3
+day = 60
 
 
 def analyze_day(day=1):
@@ -75,8 +75,8 @@ def analyze_day(day=1):
 
     ax = plt.subplot(211)
     ax.set_title("Prices")
-    plt.plot(positive_pos, 'g')
-    plt.plot(negative_pos, 'r')
+    plt.plot(positive_pos, 'r')
+    plt.plot(negative_pos, 'g')
     plt.plot(neutral_pos, 'b')
     ax = plt.subplot(212)
     ax.set_title("Profit/Loss")
