@@ -45,6 +45,6 @@ class Strategy:
             else:
                 self.order_until_at_position(i, -100)
 
-        # Reset your position at the end of the day
-        if i == len(self.prices_list)-1:
-            self.order_until_at_position(len(self.prices_list)-1, 0)
+            # Reset your position at the end of the day
+            if i == len(self.prices_list)-1:
+                self.order_until_at_position(len(self.prices_list)-1, 0)
