@@ -10,7 +10,7 @@ def read_files(which='_prices.csv', folder='prices'):
 
 
 def read_all(which='_prices.csv', folder='prices'):
-    files = read_files()
+    files = read_files(which, folder)
     list_ = []
     for cf in files:
         df = pd.read_csv(os.path.join(folder, cf), index_col='times', parse_dates=True)

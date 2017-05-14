@@ -22,6 +22,3 @@ def simple_moving_average(price_list, window):
     ret = [*head, *ret]
     return ret
 
-
-print(simple_moving_average([1, 3, 5, 7, 9, 11], 3))
-
