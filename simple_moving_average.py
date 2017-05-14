@@ -1,5 +1,4 @@
 import numpy as np
-import pandas
 
 
 def simple_moving_average(price_list, window):
@@ -10,10 +9,11 @@ def simple_moving_average(price_list, window):
     :return: a list with SMA's at those indices
     """
 
+    # Calculate moving average
     ret = np.cumsum(price_list)
     ret[window:] = ret[window:] - ret[:-window]
 
-    #generate data for the first window - 1 data points
+    # Generate data for the first (window - 1) data points
     head = np.zeros(window - 1)
     for i in range(window-1):
         head[i] = sum(price_list[0:i + 1]) / (i + 1)
