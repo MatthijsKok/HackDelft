@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from reader import *
 import numpy as np
+from simple_moving_average import simple_moving_average as sma
+import pandas
 
 # True if you want to plot al 50 days, false if you want to plot a single day
 plot_all = False
@@ -16,18 +18,19 @@ else:
 
 # Get the prices from the file
 prices_list = prices.price
+prices_list = pandas.Series.tolist(prices_list)
 
 # Trend lines for different averages
-trends = [1, 10, 300]
+trend_windows = [1, 10, 300]
 
 # Calculate trend lines
-for trend in trends:
-    trend_line = np.convolve(prices_list, np.ones(trend) / trend, mode='full')
-    trend_line = trend_line[max(trends): len(trend_line) - max(trends)]
-    plt.plot(trend_line)
+for window in trend_windows:
+    trend_line = np.convolve(prices_list, np.ones(window) / window, mode='full')
+    sma_line = sma(prices_list, window)
+    plt.plot(sma_line)
 
 # Show plot
-plt.legend(trends, loc='lower center')
+plt.legend(trend_windows, loc='lower center')
 plt.title("Price with trend lines")
 plt.show()
 
