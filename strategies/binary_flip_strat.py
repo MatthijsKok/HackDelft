@@ -33,21 +33,17 @@ class Strategy:
         self.position_list[time] = self.position_list[time-1] + self.trades_list[time-1]
 
     def implement_strategy(self):
-        small_sma = sma(self.prices_list, 5)
-        big_sma = sma(self.prices_list, 50)
         for i, price in enumerate(self.prices_list):
             self.update_position(i)
 
-            if price < big_sma[i]:
-                if price < small_sma[i]:
-                    self.order_until_at_position(i, 100)
-                elif self.position_list[i] > 0:
-                    self.order_until_at_position(i, 0)
+            previous_price = self.prices_list[i-1]
+
+            if previous_price > price:
+                self.order_until_at_position(i, 100)
+            elif previous_price == price:
+                self.order_until_at_position(i, 0)
             else:
-                if price > small_sma[i]:
-                    self.order_until_at_position(i, -100)
-                elif self.position_list[i] < 0:
-                    self.order_until_at_position(i, 0)
+                self.order_until_at_position(i, -100)
 
             # Reset your position at the end of the day
             if i == len(self.prices_list)-1:
