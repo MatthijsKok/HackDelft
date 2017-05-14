@@ -2,8 +2,7 @@
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
-# import seaborn
-import os
+import logging
 import pandas as pd
 from reader import read_all
 

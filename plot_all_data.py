@@ -21,7 +21,7 @@ prices_list = prices.price
 prices_list = pandas.Series.tolist(prices_list)
 
 # Trend lines for different averages
-trend_windows = [1, 10, 300]
+trend_windows = [1, 10, 100]
 
 # Calculate trend lines
 for window in trend_windows:

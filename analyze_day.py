@@ -25,7 +25,7 @@ Every second is assumed to have a trade, even if it's zero
 """
 
 # day to analyze
-day = 10
+day = 3
 
 
 def analyze_day(day=1):
